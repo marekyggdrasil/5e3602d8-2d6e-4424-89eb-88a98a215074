@@ -1,9 +1,10 @@
 var fivebeans = require('fivebeans').worker;
+var config = require('./config');
 
 var options = {
-	id: 'Terminator T-800',
-	host: 'challenge.aftership.net',
-	port: 11300,
+	id: config.worker.id,
+	host: config.beanstalkd.host,
+	port: config.beanstalkd.port,
 	handlers:
 	{
 		getrates: require('./handlers/getrates')()
@@ -12,7 +13,7 @@ var options = {
 }
 
 var worker = new fivebeans(options);
-var tube_list = ['marekyggdrasil'];
+var tube_list = config.beanstalkd.tube;
 
 // Beanstalkd worker events
 worker.on('started', function() {
@@ -27,15 +28,5 @@ worker.on('error', function(err) {
 worker.on('close', function() {
 	console.log('- worker '+options.id+': close');
 });
-
-// writes to mongoDB
-function setRate(rt) {
-	rate = rt;
-	console.log(rt);
-}
-
-function someshit() {
-	console.log('someshit');
-}
 
 worker.start(tube_list);

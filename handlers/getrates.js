@@ -1,6 +1,8 @@
 var apixe = require('../apixe');
 var connections = require('../database.js');
-var serverCache = connections('localhost', 27017);
+var config = require('../config');
+
+var serverCache = connections(config.mongo.server, config.mongo.port);
 
 module.exports = function() {
 	function GetRatesHandler() {
