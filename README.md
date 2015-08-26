@@ -7,7 +7,7 @@
 
 # Files #
 
-- ./worker.js
+- ./server.js
 
 Initiates worker node.
 
